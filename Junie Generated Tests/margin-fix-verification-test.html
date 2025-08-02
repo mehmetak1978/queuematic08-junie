@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Margin Fix Verification Test</title>
+    <style>
+        /* CSS Reset - Same as applied to DisplayApp.css */
+        html, body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+
+        /* Display App Styles */
+        .display-app {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            overflow: hidden;
+        }
+
+        .display-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+            gap: 12px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .display-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 16px 24px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .main-display {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 12px;
+            overflow: hidden;
+            min-height: 0;
+            max-height: calc(100vh - 200px);
+        }
+
+        .currently-serving-section {
+            grid-column: 1 / -1;
+            background: rgba(72, 187, 120, 0.2);
+            border: 2px solid rgba(72, 187, 120, 0.5);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .last-called-section {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid rgba(255, 193, 7, 0.5);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .waiting-queue-section {
+            background: rgba(49, 130, 206, 0.2);
+            border: 2px solid rgba(49, 130, 206, 0.5);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .waiting-queue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .statistics-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 16px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .display-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 16px 24px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .waiting-item {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+
+        /* Test indicators */
+        .test-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #28a745;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000;
+            max-width: 300px;
+        }
+
+        .margin-info {
+            position: fixed;
+            top: 70px;
+            right: 10px;
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+
+        .footer-position-info {
+            position: fixed;
+            top: 140px;
+            right: 10px;
+            background: #6f42c1;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-indicator">✅ CSS Reset Applied - Testing Footer Position</div>
+    <div class="margin-info">
+        <div>Body margin: <span id="body-margin"></span></div>
+        <div>HTML margin: <span id="html-margin"></span></div>
+        <div>Scroll height: <span id="scroll-height"></span></div>
+        <div>Window height: <span id="window-height"></span></div>
+    </div>
+    <div class="footer-position-info">
+        <div>Footer bottom: <span id="footer-bottom"></span></div>
+        <div>Viewport height: <span id="viewport-height"></span></div>
+        <div>Overflow: <span id="overflow-amount"></span></div>
+    </div>
+    
+    <div class="display-app">
+        <div class="display-container">
+            <!-- Header -->
+            <div class="display-header">
+                <div class="header-left">
+                    <h1 class="branch-name">Test Şubesi</h1>
+                    <p class="system-title">Sıra Takip Sistemi</p>
+                </div>
+                <div class="header-right">
+                    <div class="current-time">14:30:25</div>
+                </div>
+            </div>
+
+            <!-- Main Display -->
+            <div class="main-display">
+                <!-- Currently Being Served -->
+                <div class="currently-serving-section">
+                    <h2 class="section-title">Şu Anda Hizmet Veriliyor (2)</h2>
+                    <div class="serving-content">
+                        <p>Test serving content with CSS reset applied</p>
+                    </div>
+                </div>
+
+                <!-- Last Called -->
+                <div class="last-called-section">
+                    <h2 class="section-title">Son Çağrılan</h2>
+                    <div class="last-called-display">
+                        <p>A123</p>
+                    </div>
+                </div>
+
+                <!-- Waiting Queue -->
+                <div class="waiting-queue-section">
+                    <h2 class="section-title">Bekleyen Sıralar (15)</h2>
+                    <div class="waiting-queue-grid">
+                        <!-- Generate some waiting items -->
+                        <div class="waiting-item">A124</div>
+                        <div class="waiting-item">A125</div>
+                        <div class="waiting-item">A126</div>
+                        <div class="waiting-item">A127</div>
+                        <div class="waiting-item">A128</div>
+                        <div class="waiting-item">A129</div>
+                        <div class="waiting-item">A130</div>
+                        <div class="waiting-item">A131</div>
+                        <div class="waiting-item">A132</div>
+                        <div class="waiting-item">A133</div>
+                        <div class="waiting-item">A134</div>
+                        <div class="waiting-item">A135</div>
+                        <div class="waiting-item">A136</div>
+                        <div class="waiting-item">A137</div>
+                        <div class="waiting-item">A138</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Bar -->
+            <div class="statistics-bar">
+                <div class="stat-item">
+                    <span class="stat-label">Aktif Gişe</span>
+                    <span class="stat-value">3</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Hizmet Veriliyor</span>
+                    <span class="stat-value">2</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Bekleyen</span>
+                    <span class="stat-value">15</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Bugün Tamamlanan</span>
+                    <span class="stat-value">47</span>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="display-footer" id="test-footer">
+                <div class="footer-left">
+                    <span class="refresh-info">
+                        🔄 Otomatik yenileme: 5 saniye
+                    </span>
+                </div>
+                <div class="footer-right">
+                    <span class="system-info">
+                        Queuematic Sistemi v1.0 - Margin Fix Applied
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', function() {
+            // Get computed styles
+            const bodyStyle = window.getComputedStyle(document.body);
+            const htmlStyle = window.getComputedStyle(document.documentElement);
+            
+            // Check for scrolling
+            const hasVerticalScroll = document.body.scrollHeight > window.innerHeight;
+            const scrollDifference = document.body.scrollHeight - window.innerHeight;
+            
+            // Get footer position
+            const footer = document.getElementById('test-footer');
+            const footerRect = footer.getBoundingClientRect();
+            const isFooterVisible = footerRect.bottom <= window.innerHeight;
+            const footerOverflow = footerRect.bottom - window.innerHeight;
+            
+            // Update display
+            document.getElementById('body-margin').textContent = bodyStyle.margin;
+            document.getElementById('html-margin').textContent = htmlStyle.margin;
+            document.getElementById('scroll-height').textContent = document.body.scrollHeight + 'px';
+            document.getElementById('window-height').textContent = window.innerHeight + 'px';
+            document.getElementById('footer-bottom').textContent = Math.round(footerRect.bottom) + 'px';
+            document.getElementById('viewport-height').textContent = window.innerHeight + 'px';
+            document.getElementById('overflow-amount').textContent = Math.round(footerOverflow) + 'px';
+            
+            const indicator = document.querySelector('.test-indicator');
+            
+            if (!hasVerticalScroll && isFooterVisible) {
+                indicator.style.background = '#28a745';
+                indicator.textContent = '✅ SUCCESS: No scroll, footer within viewport!';
+            } else {
+                indicator.style.background = '#dc3545';
+                indicator.textContent = `❌ FAILED: ${hasVerticalScroll ? 'Has scroll' : ''} ${!isFooterVisible ? 'Footer overflow: +' + Math.round(footerOverflow) + 'px' : ''}`;
+            }
+            
+            console.log('=== MARGIN FIX VERIFICATION RESULTS ===');
+            console.log('Body margin:', bodyStyle.margin);
+            console.log('HTML margin:', htmlStyle.margin);
+            console.log('Body padding:', bodyStyle.padding);
+            console.log('HTML padding:', htmlStyle.padding);
+            console.log('Has vertical scroll:', hasVerticalScroll);
+            console.log('Scroll difference:', scrollDifference + 'px');
+            console.log('Footer bottom position:', footerRect.bottom);
+            console.log('Window height:', window.innerHeight);
+            console.log('Footer visible within viewport:', isFooterVisible);
+            console.log('Footer overflow amount:', footerOverflow + 'px');
+        });
+    </script>
+</body>
+</html>

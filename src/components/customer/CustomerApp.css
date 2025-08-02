@@ -1,0 +1,648 @@
+/**
+ * Customer App Styles
+ * Responsive design for tablet and desktop screens
+ */
+
+.customer-app {
+  height: var(--content-height, calc(100vh - 84px)); /* Use dynamic height calculation */
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: var(--content-padding, 20px);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  overflow: hidden; /* Prevent overflow from the app container */
+}
+
+.customer-container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--content-gap, 24px);
+  height: 100%; /* Fill the available height */
+  overflow-y: auto; /* Allow scrolling within the container if needed */
+}
+
+/* Header Section */
+.customer-header {
+  text-align: center;
+  background: white;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.customer-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 8px 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.customer-subtitle {
+  font-size: 18px;
+  color: #718096;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Status Section */
+.status-section {
+  display: flex;
+  justify-content: center;
+}
+
+.status-card {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.status-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.last-called {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.last-called-label {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.last-called-number {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.last-called-counter {
+  font-size: 16px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.status-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.status-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.status-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.status-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+/* Take Number Section */
+.take-number-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.take-number-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 40px;
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(72, 187, 120, 0.3);
+  min-width: 280px;
+  min-height: 70px;
+}
+
+.take-number-button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(72, 187, 120, 0.4);
+}
+
+.take-number-button:active:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.take-number-button:disabled {
+  background: #a0aec0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.take-number-button.loading {
+  pointer-events: none;
+}
+
+.take-number-icon {
+  font-size: 24px;
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid transparent;
+  border-top: 3px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Messages */
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #fed7d7;
+  border: 1px solid #feb2b2;
+  border-radius: 8px;
+  color: #c53030;
+  font-size: 14px;
+  font-weight: 500;
+  max-width: 400px;
+  text-align: center;
+}
+
+.info-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #bee3f8;
+  border: 1px solid #90cdf4;
+  border-radius: 8px;
+  color: #2b6cb0;
+  font-size: 14px;
+  font-weight: 500;
+  max-width: 400px;
+  text-align: center;
+}
+
+.error-icon,
+.info-icon {
+  font-size: 16px;
+}
+
+/* Recent Numbers Section */
+.recent-numbers-section {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.recent-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.recent-numbers {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.recent-number {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.recent-number-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2d3748;
+  min-width: 40px;
+}
+
+.recent-number-time {
+  font-size: 12px;
+  color: #718096;
+}
+
+.recent-number-status {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-align: center;
+  min-width: 80px;
+}
+
+.recent-number-status.waiting {
+  background: #fef5e7;
+  color: #c05621;
+}
+
+.recent-number-status.called {
+  background: #e6fffa;
+  color: #234e52;
+}
+
+.recent-number-status.serving {
+  background: #ebf8ff;
+  color: #2c5282;
+}
+
+.recent-number-status.completed {
+  background: #f0fff4;
+  color: #22543d;
+}
+
+/* Instructions Section */
+.instructions-section {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.instructions-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.instructions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.instruction-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+}
+
+.instruction-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.instruction-text {
+  font-size: 14px;
+  color: #4a5568;
+  line-height: 1.5;
+}
+
+/* Auto Refresh Info */
+.auto-refresh-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  font-size: 12px;
+  color: #718096;
+}
+
+.refresh-icon {
+  font-size: 14px;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .customer-app {
+    padding: 32px;
+  }
+
+  .customer-container {
+    max-width: 900px;
+    gap: 32px;
+  }
+
+  .customer-header {
+    padding: 40px;
+  }
+
+  .customer-title {
+    font-size: 36px;
+  }
+
+  .customer-subtitle {
+    font-size: 20px;
+  }
+
+  .status-card {
+    padding: 32px;
+  }
+
+  .status-info {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .take-number-button {
+    font-size: 22px;
+    padding: 24px 48px;
+    min-width: 320px;
+    min-height: 80px;
+  }
+
+  .take-number-icon {
+    font-size: 28px;
+  }
+
+  .recent-numbers {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .instructions {
+    grid-template-columns: 1fr;
+  }
+
+  .last-called-number {
+    font-size: 56px;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .customer-app {
+    padding: 40px;
+  }
+
+  .customer-container {
+    max-width: 1000px;
+    gap: 40px;
+  }
+
+  .customer-header {
+    padding: 48px;
+  }
+
+  .customer-title {
+    font-size: 40px;
+  }
+
+  .customer-subtitle {
+    font-size: 22px;
+  }
+
+  .status-card {
+    padding: 40px;
+  }
+
+  .status-info {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .take-number-button {
+    font-size: 24px;
+    padding: 28px 56px;
+    min-width: 360px;
+    min-height: 90px;
+  }
+
+  .take-number-icon {
+    font-size: 32px;
+  }
+
+  .recent-numbers {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .last-called-number {
+    font-size: 64px;
+  }
+
+  .recent-numbers-section,
+  .instructions-section {
+    padding: 32px;
+  }
+}
+
+/* Large Desktop Styles */
+@media (min-width: 1200px) {
+  .customer-container {
+    max-width: 1200px;
+  }
+
+  .status-info {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .recent-numbers {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* Mobile Responsive (for smaller screens) */
+@media (max-width: 767px) {
+  .customer-app {
+    padding: 16px;
+  }
+
+  .customer-container {
+    gap: 20px;
+  }
+
+  .customer-header {
+    padding: 24px;
+  }
+
+  .customer-title {
+    font-size: 28px;
+  }
+
+  .customer-subtitle {
+    font-size: 16px;
+  }
+
+  .status-card {
+    padding: 20px;
+  }
+
+  .take-number-button {
+    font-size: 18px;
+    padding: 16px 32px;
+    min-width: 240px;
+    min-height: 60px;
+  }
+
+  .take-number-icon {
+    font-size: 20px;
+  }
+
+  .last-called-number {
+    font-size: 40px;
+  }
+
+  .recent-numbers-section,
+  .instructions-section {
+    padding: 20px;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .customer-app {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  }
+
+  .customer-header,
+  .status-card,
+  .recent-numbers-section,
+  .instructions-section {
+    background: #2d3748;
+    color: #e2e8f0;
+  }
+
+  .customer-title {
+    color: #e2e8f0;
+  }
+
+  .customer-subtitle {
+    color: #a0aec0;
+  }
+
+  .status-title,
+  .recent-title,
+  .instructions-title {
+    color: #e2e8f0;
+  }
+
+  .status-item,
+  .recent-number {
+    background: #4a5568;
+  }
+
+  .status-label,
+  .instruction-text {
+    color: #a0aec0;
+  }
+
+  .status-value,
+  .recent-number-value {
+    color: #e2e8f0;
+  }
+
+  .auto-refresh-info {
+    background: rgba(45, 55, 72, 0.8);
+    color: #a0aec0;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: more) {
+  .status-card,
+  .recent-numbers-section,
+  .instructions-section {
+    border: 2px solid #2d3748;
+  }
+
+  .take-number-button {
+    border: 2px solid #38a169;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .take-number-button,
+  .loading-spinner,
+  .refresh-icon {
+    transition: none;
+    animation: none;
+  }
+
+  .take-number-button:hover:not(:disabled) {
+    transform: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .customer-app {
+    background: white;
+    color: black;
+  }
+
+  .take-number-button,
+  .auto-refresh-info {
+    display: none;
+  }
+
+  .customer-header,
+  .status-card,
+  .recent-numbers-section,
+  .instructions-section {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}

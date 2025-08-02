@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Margin Scroll Test</title>
+    <style>
+        /* Test without CSS reset to demonstrate the problem */
+        .test-container {
+            height: 100vh;
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .test-header {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .test-footer {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .test-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #dc3545;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+        
+        .margin-info {
+            position: fixed;
+            top: 60px;
+            right: 10px;
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-indicator">Testing Browser Default Margins</div>
+    <div class="margin-info">
+        <div>Body margin: <span id="body-margin"></span></div>
+        <div>HTML margin: <span id="html-margin"></span></div>
+        <div>Scroll height: <span id="scroll-height"></span></div>
+        <div>Window height: <span id="window-height"></span></div>
+    </div>
+    
+    <div class="test-container">
+        <div class="test-header">
+            <h1>Header Section</h1>
+            <p>This container is set to 100vh height</p>
+        </div>
+        
+        <div class="test-content">
+            <h2>Content Area</h2>
+            <p>If you can scroll this page, it means browser default margins are causing overflow.</p>
+        </div>
+        
+        <div class="test-footer">
+            <h3>Footer Section</h3>
+            <p>This footer should be at the bottom without causing scroll</p>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', function() {
+            // Get computed styles
+            const bodyStyle = window.getComputedStyle(document.body);
+            const htmlStyle = window.getComputedStyle(document.documentElement);
+            
+            // Check for scrolling
+            const hasVerticalScroll = document.body.scrollHeight > window.innerHeight;
+            const scrollDifference = document.body.scrollHeight - window.innerHeight;
+            
+            // Update display
+            document.getElementById('body-margin').textContent = bodyStyle.margin;
+            document.getElementById('html-margin').textContent = htmlStyle.margin;
+            document.getElementById('scroll-height').textContent = document.body.scrollHeight + 'px';
+            document.getElementById('window-height').textContent = window.innerHeight + 'px';
+            
+            const indicator = document.querySelector('.test-indicator');
+            
+            if (hasVerticalScroll) {
+                indicator.style.background = '#dc3545';
+                indicator.textContent = `❌ SCROLL DETECTED: +${scrollDifference}px overflow`;
+            } else {
+                indicator.style.background = '#28a745';
+                indicator.textContent = '✅ NO SCROLL - Perfect fit';
+            }
+            
+            console.log('=== MARGIN SCROLL TEST RESULTS ===');
+            console.log('Body margin:', bodyStyle.margin);
+            console.log('HTML margin:', htmlStyle.margin);
+            console.log('Body padding:', bodyStyle.padding);
+            console.log('HTML padding:', htmlStyle.padding);
+            console.log('Has vertical scroll:', hasVerticalScroll);
+            console.log('Scroll difference:', scrollDifference + 'px');
+            console.log('Window height:', window.innerHeight);
+            console.log('Body scroll height:', document.body.scrollHeight);
+        });
+    </script>
+</body>
+</html>

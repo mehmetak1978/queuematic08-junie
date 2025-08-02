@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Height Test - Fixed Version</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .height-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: yellow;
+            padding: 10px;
+            border: 1px solid black;
+            z-index: 1000;
+        }
+        
+        /* Updated display layout with fixes */
+        .simulated-display {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            color: white;
+            overflow: hidden;
+        }
+        
+        .simulated-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 12px; /* REDUCED from 20px */
+            gap: 12px; /* REDUCED from 20px */
+            box-sizing: border-box; /* ADDED */
+            border: 2px solid yellow;
+        }
+        
+        .simulated-header {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 16px 24px; /* REDUCED from 20px 30px */
+            border-radius: 12px; /* REDUCED from 16px */
+            border: 1px solid lime;
+        }
+        
+        .simulated-main {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 12px; /* REDUCED from 20px */
+            border: 1px solid cyan;
+        }
+        
+        .simulated-serving {
+            grid-column: 1 / -1;
+            background: rgba(72, 187, 120, 0.2);
+            border: 2px solid rgba(72, 187, 120, 0.5);
+            border-radius: 12px; /* REDUCED from 16px */
+            padding: 20px; /* REDUCED from 30px */
+            min-height: 120px; /* REDUCED from 150px */
+        }
+        
+        .simulated-last-called {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid rgba(255, 193, 7, 0.5);
+            border-radius: 12px; /* REDUCED from 16px */
+            padding: 20px; /* REDUCED from 30px */
+            min-height: 160px; /* REDUCED from 200px */
+        }
+        
+        .simulated-waiting {
+            background: rgba(49, 130, 206, 0.2);
+            border: 2px solid rgba(49, 130, 206, 0.5);
+            border-radius: 12px; /* REDUCED from 16px */
+            padding: 20px; /* REDUCED from 30px */
+            min-height: 160px; /* REDUCED from 200px */
+        }
+        
+        .simulated-stats {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 16px; /* REDUCED from 20px */
+            border-radius: 12px; /* REDUCED from 16px */
+            min-height: 60px; /* REDUCED from 80px */
+        }
+        
+        .simulated-footer {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 16px 24px;
+            border-radius: 12px;
+            min-height: 30px; /* REDUCED from 40px */
+        }
+        
+        .section-title {
+            font-size: 24px; /* REDUCED from 28px */
+            margin: 0 0 16px 0; /* REDUCED from 20px */
+        }
+        
+        .large-number {
+            font-size: 80px; /* REDUCED from 96px */
+            font-weight: 700;
+            color: #ffffff;
+        }
+        
+        .overflow-test {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: red;
+            color: white;
+            padding: 10px;
+            font-weight: bold;
+        }
+        
+        .changes-summary {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            max-width: 300px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="height-indicator">
+        <div>Viewport Height: <span id="vh-value"></span>px</div>
+        <div>Document Height: <span id="doc-height"></span>px</div>
+        <div>Overflow: <span id="overflow-status"></span></div>
+        <div>Space Saved: <span id="space-saved"></span>px</div>
+    </div>
+    
+    <div class="changes-summary">
+        <h4>Applied Fixes:</h4>
+        <ul>
+            <li>Container padding: 20px → 12px</li>
+            <li>Container gap: 20px → 12px</li>
+            <li>Header padding: 20px 30px → 16px 24px</li>
+            <li>Section padding: 30px → 20px</li>
+            <li>Main display gap: 20px → 12px</li>
+            <li>Section title: 28px → 24px</li>
+            <li>Last called font: 96px → 80px</li>
+            <li>Stats bar padding: 20px → 16px</li>
+            <li>Waiting queue max-height: 400px → 300px</li>
+            <li>Added box-sizing: border-box</li>
+        </ul>
+    </div>
+    
+    <div class="simulated-display">
+        <div class="simulated-container">
+            <div class="simulated-header">
+                <h1>Header Section (padding: 16px 24px)</h1>
+            </div>
+            
+            <div class="simulated-main">
+                <div class="simulated-serving">
+                    <h2 class="section-title">Currently Serving (padding: 20px)</h2>
+                    <p>This section takes full width</p>
+                </div>
+                
+                <div class="simulated-last-called">
+                    <h2 class="section-title">Last Called (padding: 20px)</h2>
+                    <div class="large-number">123</div>
+                    <p>Font size: 80px (was 96px)</p>
+                </div>
+                
+                <div class="simulated-waiting">
+                    <h2 class="section-title">Waiting Queue (padding: 20px)</h2>
+                    <p>Max height: 300px (was 400px)</p>
+                </div>
+            </div>
+            
+            <div class="simulated-stats">
+                <h3>Statistics Bar (padding: 16px)</h3>
+            </div>
+            
+            <div class="simulated-footer">
+                <p>Footer (padding: 16px 24px)</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="overflow-test">
+        If you can see this, there's still overflow!
+    </div>
+    
+    <script>
+        function updateHeightInfo() {
+            const vh = window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+            const overflow = docHeight > vh;
+            
+            document.getElementById('vh-value').textContent = vh;
+            document.getElementById('doc-height').textContent = docHeight;
+            document.getElementById('overflow-status').textContent = overflow ? 'YES - STILL PROBLEM!' : 'NO - FIXED!';
+            document.getElementById('overflow-status').style.color = overflow ? 'red' : 'green';
+            
+            // Calculate space saved
+            const originalExtraHeight = 412; // From previous calculation
+            const newContainerPadding = 12 * 2; // top + bottom
+            const newContainerGap = 12 * 4; // 4 gaps between sections
+            const newHeaderPadding = 16 * 2;
+            const newSectionPadding = 20 * 2; // for each section
+            const newStatsPadding = 16 * 2;
+            const newFooterPadding = 16 * 2;
+            
+            const newTotalExtraHeight = newContainerPadding + newContainerGap + newHeaderPadding + (newSectionPadding * 3) + newStatsPadding + newFooterPadding;
+            const spaceSaved = originalExtraHeight - newTotalExtraHeight;
+            
+            document.getElementById('space-saved').textContent = spaceSaved;
+        }
+        
+        updateHeightInfo();
+        window.addEventListener('resize', updateHeightInfo);
+        
+        // Log the results
+        console.log('=== DISPLAY HEIGHT TEST - FIXED VERSION ===');
+        console.log('Viewport Height:', window.innerHeight);
+        console.log('Document Height:', document.documentElement.scrollHeight);
+        console.log('Has Overflow:', document.documentElement.scrollHeight > window.innerHeight);
+        
+        // Calculate new total padding and gaps
+        const newContainerPadding = 12 * 2;
+        const newContainerGap = 12 * 4;
+        const newHeaderPadding = 16 * 2;
+        const newSectionPadding = 20 * 2;
+        const newStatsPadding = 16 * 2;
+        const newFooterPadding = 16 * 2;
+        
+        const newTotalExtraHeight = newContainerPadding + newContainerGap + newHeaderPadding + (newSectionPadding * 3) + newStatsPadding + newFooterPadding;
+        
+        console.log('New total extra height from padding/gaps:', newTotalExtraHeight, 'px');
+        console.log('Original was 412px, saved:', 412 - newTotalExtraHeight, 'px');
+    </script>
+</body>
+</html>

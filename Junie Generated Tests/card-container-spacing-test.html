@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Container Spacing Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            gap: 20px;
+        }
+
+        .test-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .comparison-label {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        /* CURRENT IMPLEMENTATION - EXCESSIVE SPACING */
+        .currently-serving-section-current {
+            background: rgba(72, 187, 120, 0.2);
+            border: 2px solid rgba(72, 187, 120, 0.5);
+            border-radius: 12px;
+            padding: 16px; /* TOO MUCH */
+            backdrop-filter: blur(10px);
+        }
+
+        .last-called-section-current {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid rgba(255, 193, 7, 0.5);
+            border-radius: 12px;
+            padding: 16px; /* TOO MUCH */
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title-current {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0 0 16px 0; /* TOO MUCH BOTTOM MARGIN */
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .last-called-number-current {
+            margin-bottom: 20px; /* TOO MUCH */
+        }
+
+        .last-called-value-current {
+            display: block;
+            font-size: 48px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .no-serving-current {
+            text-align: center;
+            padding: 60px; /* EXCESSIVE PADDING */
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* IMPROVED IMPLEMENTATION - REDUCED SPACING */
+        .currently-serving-section-improved {
+            background: rgba(72, 187, 120, 0.2);
+            border: 2px solid rgba(72, 187, 120, 0.5);
+            border-radius: 12px;
+            padding: 10px; /* REDUCED */
+            backdrop-filter: blur(10px);
+        }
+
+        .last-called-section-improved {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid rgba(255, 193, 7, 0.5);
+            border-radius: 12px;
+            padding: 10px; /* REDUCED */
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title-improved {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0 0 10px 0; /* REDUCED */
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .last-called-number-improved {
+            margin-bottom: 12px; /* REDUCED */
+        }
+
+        .last-called-value-improved {
+            display: block;
+            font-size: 48px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .no-serving-improved {
+            text-align: center;
+            padding: 30px; /* REDUCED */
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .last-called-display {
+            text-align: center;
+        }
+
+        .last-called-time {
+            font-size: 16px;
+            opacity: 0.8;
+            font-family: 'Courier New', monospace;
+        }
+
+        .no-serving-icon {
+            font-size: 48px; /* Reduced from 64px */
+            display: block;
+            margin-bottom: 15px; /* Reduced from 20px */
+        }
+
+        .no-serving p {
+            font-size: 20px; /* Reduced from 24px */
+            margin: 0;
+        }
+
+        .spacing-highlight {
+            border: 2px dashed rgba(255, 0, 0, 0.5);
+            background: rgba(255, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-info">
+            <h1>Card Container Spacing Test</h1>
+            <p><strong>Issue:</strong> Card containers have excessive height and too much internal spacing</p>
+            <p>Red dashed borders highlight problematic spacing areas</p>
+        </div>
+
+        <!-- Currently Serving Section Comparison -->
+        <div class="comparison-grid">
+            <div>
+                <div class="comparison-label">Current - Too Much Spacing</div>
+                <div class="currently-serving-section-current spacing-highlight">
+                    <div class="no-serving-current spacing-highlight">
+                        <span class="no-serving-icon">⏸️</span>
+                        <p>Şu anda hizmet verilmiyor</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="comparison-label">Improved - Reduced Spacing</div>
+                <div class="currently-serving-section-improved">
+                    <div class="no-serving-improved">
+                        <span class="no-serving-icon">⏸️</span>
+                        <p>Şu anda hizmet verilmiyor</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Last Called Section Comparison -->
+        <div class="comparison-grid">
+            <div>
+                <div class="comparison-label">Current - Too Much Spacing</div>
+                <div class="last-called-section-current spacing-highlight">
+                    <h2 class="section-title-current spacing-highlight">Son Çağrılan Sıra No</h2>
+                    <div class="last-called-display">
+                        <div class="last-called-number-current spacing-highlight">
+                            <span class="last-called-value-current">A123</span>
+                        </div>
+                        <div class="last-called-time">14:30:25</div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="comparison-label">Improved - Reduced Spacing</div>
+                <div class="last-called-section-improved">
+                    <h2 class="section-title-improved">Son Çağrılan Sıra No</h2>
+                    <div class="last-called-display">
+                        <div class="last-called-number-improved">
+                            <span class="last-called-value-improved">A123</span>
+                        </div>
+                        <div class="last-called-time">14:30:25</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-info">
+            <h3>Identified Spacing Issues</h3>
+            <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
+                <li><strong>Section padding:</strong> 16px → 10px (37% reduction)</li>
+                <li><strong>Section title margin:</strong> 16px → 10px (37% reduction)</li>
+                <li><strong>Last called number margin:</strong> 20px → 12px (40% reduction)</li>
+                <li><strong>No-serving padding:</strong> 60px → 30px (50% reduction)</li>
+                <li><strong>No-serving icon size:</strong> 64px → 48px (25% reduction)</li>
+                <li><strong>No-serving text size:</strong> 24px → 20px (17% reduction)</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

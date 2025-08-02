@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiting Queue Content Fill Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            gap: 30px;
+        }
+
+        .test-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        /* Current Implementation */
+        .waiting-queue-section {
+            background: rgba(49, 130, 206, 0.2);
+            border: 2px solid rgba(49, 130, 206, 0.5);
+            border-radius: 12px;
+            padding: 16px;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            text-align: center;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .waiting-queue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 8px;
+            max-height: 140px;
+            overflow-y: auto;
+            border: 1px dashed rgba(255, 255, 255, 0.3); /* Visual aid to see boundaries */
+        }
+
+        .waiting-item {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .waiting-number {
+            display: block;
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .waiting-time {
+            display: block;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        /* Improved Implementation */
+        .waiting-queue-section-improved {
+            background: rgba(49, 130, 206, 0.2);
+            border: 2px solid rgba(49, 130, 206, 0.5);
+            border-radius: 12px;
+            padding: 12px;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .waiting-queue-grid-improved {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 6px;
+            max-height: 140px;
+            overflow-y: auto;
+            border: 1px dashed rgba(255, 255, 255, 0.3); /* Visual aid to see boundaries */
+        }
+
+        .waiting-item-improved {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            padding: 8px;
+            text-align: center;
+            transition: all 0.2s ease;
+            min-height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .comparison-label {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-info">
+            <h1>Waiting Queue Content Fill Test</h1>
+            <p>Testing how well the content fills the waiting queue card</p>
+            <p><strong>Issue:</strong> Content not filling the card interior completely</p>
+        </div>
+
+        <!-- Current Implementation -->
+        <div>
+            <div class="comparison-label">Current Implementation (Problem)</div>
+            <div class="waiting-queue-section">
+                <h2 class="section-title">Bekleyen Sıralar (6)</h2>
+                <div class="waiting-queue-grid">
+                    <div class="waiting-item">
+                        <span class="waiting-number">A124</span>
+                        <span class="waiting-time">5 dk</span>
+                    </div>
+                    <div class="waiting-item">
+                        <span class="waiting-number">A125</span>
+                        <span class="waiting-time">8 dk</span>
+                    </div>
+                    <div class="waiting-item">
+                        <span class="waiting-number">A126</span>
+                        <span class="waiting-time">12 dk</span>
+                    </div>
+                    <div class="waiting-item">
+                        <span class="waiting-number">A127</span>
+                        <span class="waiting-time">15 dk</span>
+                    </div>
+                    <div class="waiting-item">
+                        <span class="waiting-number">A128</span>
+                        <span class="waiting-time">18 dk</span>
+                    </div>
+                    <div class="waiting-item">
+                        <span class="waiting-number">A129</span>
+                        <span class="waiting-time">22 dk</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Improved Implementation -->
+        <div>
+            <div class="comparison-label">Improved Implementation (Solution)</div>
+            <div class="waiting-queue-section-improved">
+                <h2 class="section-title">Bekleyen Sıralar (6)</h2>
+                <div class="waiting-queue-grid-improved">
+                    <div class="waiting-item-improved">
+                        <span class="waiting-number">A124</span>
+                        <span class="waiting-time">5 dk</span>
+                    </div>
+                    <div class="waiting-item-improved">
+                        <span class="waiting-number">A125</span>
+                        <span class="waiting-time">8 dk</span>
+                    </div>
+                    <div class="waiting-item-improved">
+                        <span class="waiting-number">A126</span>
+                        <span class="waiting-time">12 dk</span>
+                    </div>
+                    <div class="waiting-item-improved">
+                        <span class="waiting-number">A127</span>
+                        <span class="waiting-time">15 dk</span>
+                    </div>
+                    <div class="waiting-item-improved">
+                        <span class="waiting-number">A128</span>
+                        <span class="waiting-time">18 dk</span>
+                    </div>
+                    <div class="waiting-item-improved">
+                        <span class="waiting-number">A129</span>
+                        <span class="waiting-time">22 dk</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-info">
+            <h3>Key Improvements</h3>
+            <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
+                <li><strong>auto-fit vs auto-fill:</strong> Better column utilization</li>
+                <li><strong>Reduced padding:</strong> 16px → 12px (section), 12px → 8px (items)</li>
+                <li><strong>Smaller gaps:</strong> 8px → 6px between items</li>
+                <li><strong>Smaller min-width:</strong> 120px → 100px for more columns</li>
+                <li><strong>Flexbox items:</strong> Better vertical centering and space usage</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

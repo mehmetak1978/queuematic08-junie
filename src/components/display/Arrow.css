@@ -1,0 +1,131 @@
+/**
+ * Arrow Component Styles
+ * Styling for the arrow visualization between queue and counter
+ */
+
+.arrow-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 16px;
+  flex-shrink: 0;
+}
+
+.arrow-svg {
+  display: block;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* Size variants */
+.arrow-container.small .arrow-svg {
+  width: 60px;
+  height: 12px;
+}
+
+.arrow-container.medium .arrow-svg {
+  width: 80px;
+  height: 16px;
+}
+
+.arrow-container.large .arrow-svg {
+  width: 100px;
+  height: 20px;
+}
+
+/* Animation for the arrow */
+.arrow-container.animated .arrow-line {
+  stroke-dasharray: 5, 5;
+  animation: arrow-flow 2s linear infinite;
+}
+
+.arrow-container.animated .arrow-head {
+  animation: arrow-pulse 2s ease-in-out infinite;
+}
+
+.arrow-container.animated .arrow-pulse {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* Keyframe animations */
+@keyframes arrow-flow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -10;
+  }
+}
+
+@keyframes arrow-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pulse-dot {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Hover effects */
+.arrow-container:hover .arrow-line,
+.arrow-container:hover .arrow-head {
+  filter: brightness(1.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .arrow-container {
+    margin: 0 8px;
+  }
+  
+  .arrow-container.large .arrow-svg {
+    width: 80px;
+    height: 16px;
+  }
+  
+  .arrow-container.medium .arrow-svg {
+    width: 60px;
+    height: 12px;
+  }
+  
+  .arrow-container.small .arrow-svg {
+    width: 40px;
+    height: 8px;
+  }
+}
+
+/* High contrast mode support - fallback styles */
+.arrow-container.high-contrast .arrow-svg {
+  filter: none;
+}
+
+.arrow-container.high-contrast .arrow-line,
+.arrow-container.high-contrast .arrow-head,
+.arrow-container.high-contrast .arrow-pulse {
+  stroke-width: 4;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .arrow-container.animated .arrow-line,
+  .arrow-container.animated .arrow-head,
+  .arrow-container.animated .arrow-pulse {
+    animation: none;
+  }
+}

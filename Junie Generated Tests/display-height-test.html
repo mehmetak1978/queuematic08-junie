@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Height Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .test-container {
+            background: #f0f0f0;
+            padding: 20px;
+            border: 2px solid red;
+        }
+        
+        .height-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: yellow;
+            padding: 10px;
+            border: 1px solid black;
+            z-index: 1000;
+        }
+        
+        /* Simulated display layout */
+        .simulated-display {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            color: white;
+            overflow: hidden;
+        }
+        
+        .simulated-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 20px;
+            border: 2px solid yellow; /* Visual indicator */
+        }
+        
+        .simulated-header {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 30px;
+            border-radius: 16px;
+            border: 1px solid lime; /* Visual indicator */
+        }
+        
+        .simulated-main {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 20px;
+            border: 1px solid cyan; /* Visual indicator */
+        }
+        
+        .simulated-serving {
+            grid-column: 1 / -1;
+            background: rgba(72, 187, 120, 0.2);
+            border: 2px solid rgba(72, 187, 120, 0.5);
+            border-radius: 16px;
+            padding: 30px;
+            min-height: 150px;
+        }
+        
+        .simulated-last-called {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid rgba(255, 193, 7, 0.5);
+            border-radius: 16px;
+            padding: 30px;
+            min-height: 200px;
+        }
+        
+        .simulated-waiting {
+            background: rgba(49, 130, 206, 0.2);
+            border: 2px solid rgba(49, 130, 206, 0.5);
+            border-radius: 16px;
+            padding: 30px;
+            min-height: 200px;
+        }
+        
+        .simulated-stats {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 16px;
+            min-height: 80px;
+        }
+        
+        .simulated-footer {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 16px 24px;
+            border-radius: 12px;
+            min-height: 40px;
+        }
+        
+        .overflow-test {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: red;
+            color: white;
+            padding: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="height-indicator">
+        <div>Viewport Height: <span id="vh-value"></span>px</div>
+        <div>Document Height: <span id="doc-height"></span>px</div>
+        <div>Overflow: <span id="overflow-status"></span></div>
+    </div>
+    
+    <div class="simulated-display">
+        <div class="simulated-container">
+            <div class="simulated-header">
+                <h1>Header Section (padding: 20px 30px)</h1>
+            </div>
+            
+            <div class="simulated-main">
+                <div class="simulated-serving">
+                    <h2>Currently Serving (padding: 30px)</h2>
+                    <p>This section takes full width</p>
+                </div>
+                
+                <div class="simulated-last-called">
+                    <h2>Last Called (padding: 30px)</h2>
+                    <p>Large font size: 96px</p>
+                </div>
+                
+                <div class="simulated-waiting">
+                    <h2>Waiting Queue (padding: 30px)</h2>
+                    <p>Max height: 400px</p>
+                </div>
+            </div>
+            
+            <div class="simulated-stats">
+                <h3>Statistics Bar (padding: 20px)</h3>
+            </div>
+            
+            <div class="simulated-footer">
+                <p>Footer (padding: 16px 24px)</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="overflow-test">
+        If you can see this, there's overflow!
+    </div>
+    
+    <script>
+        function updateHeightInfo() {
+            const vh = window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+            const overflow = docHeight > vh;
+            
+            document.getElementById('vh-value').textContent = vh;
+            document.getElementById('doc-height').textContent = docHeight;
+            document.getElementById('overflow-status').textContent = overflow ? 'YES - PROBLEM!' : 'NO - OK';
+            document.getElementById('overflow-status').style.color = overflow ? 'red' : 'green';
+        }
+        
+        updateHeightInfo();
+        window.addEventListener('resize', updateHeightInfo);
+        
+        // Log the issue
+        console.log('=== DISPLAY HEIGHT TEST ===');
+        console.log('Viewport Height:', window.innerHeight);
+        console.log('Document Height:', document.documentElement.scrollHeight);
+        console.log('Has Overflow:', document.documentElement.scrollHeight > window.innerHeight);
+        
+        // Calculate total padding and gaps
+        const containerPadding = 20 * 2; // top + bottom
+        const containerGap = 20 * 4; // 4 gaps between sections
+        const headerPadding = 20 * 2;
+        const sectionPadding = 30 * 2; // for each section
+        const statsPadding = 20 * 2;
+        const footerPadding = 16 * 2;
+        
+        const totalExtraHeight = containerPadding + containerGap + headerPadding + (sectionPadding * 3) + statsPadding + footerPadding;
+        
+        console.log('Total extra height from padding/gaps:', totalExtraHeight, 'px');
+        console.log('This exceeds 100vh by:', totalExtraHeight, 'px');
+    </script>
+</body>
+</html>

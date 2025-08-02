@@ -1,0 +1,11 @@
+- make an object oriented project architecture
+- don't use typescrpipt
+- use vite for creating react application
+- implement different steps in different files
+- Add all configuration parameters, like refresh interval times of pages into a config file
+- add generated md files into "Junie Generated Documents" folder
+- when you need to generate a special test for a specific case while you are developing, create the test file in "Junie Generated Tests" folder
+- use a central logging mechanism
+- the log level will be determined in config file, default will be INFO
+- preffered logging colors:
+  - INFO: GREEN, WARNING: yellow, ERROR: red, DEBUG: blue

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Card Height Test</title>
+    <style>
+        /* Import the relevant CSS styles for testing */
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Last Called Section Styles */
+        .last-called-section {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid rgba(255, 193, 7, 0.5);
+            border-radius: 12px;
+            padding: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            text-align: center;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .last-called-display {
+            text-align: center;
+        }
+
+        .last-called-number {
+            margin-bottom: 20px;
+        }
+
+        .last-called-value {
+            display: block;
+            font-size: 48px; /* Reduced from 70px */
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .last-called-time {
+            font-size: 16px;
+            opacity: 0.8;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Waiting Queue Section Styles */
+        .waiting-queue-section {
+            background: rgba(49, 130, 206, 0.2);
+            border: 2px solid rgba(49, 130, 206, 0.5);
+            border-radius: 12px;
+            padding: 16px;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .waiting-queue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 8px;
+            max-height: 140px; /* Reduced from 200px */
+            overflow-y: auto;
+        }
+
+        .waiting-item {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .waiting-number {
+            display: block;
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .waiting-time {
+            display: block;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .test-info {
+            grid-column: 1 / -1;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-info">
+        <h1>Display Card Height Test</h1>
+        <p>Testing reduced heights for "Son Çağrılan Sıra No" and "Bekleyen Sıralar" cards</p>
+        <p><strong>Changes:</strong> Last called font-size: 70px → 48px, Waiting queue max-height: 200px → 140px</p>
+    </div>
+
+    <div class="test-container">
+        <!-- Last Called Section Test -->
+        <div class="last-called-section">
+            <h2 class="section-title">Son Çağrılan Sıra No</h2>
+            <div class="last-called-display">
+                <div class="last-called-number">
+                    <span class="last-called-value">A123</span>
+                </div>
+                <div class="last-called-time">
+                    14:30:25
+                </div>
+            </div>
+        </div>
+
+        <!-- Waiting Queue Section Test -->
+        <div class="waiting-queue-section">
+            <h2 class="section-title">
+                Bekleyen Sıralar (8)
+            </h2>
+            <div class="waiting-queue-grid">
+                <div class="waiting-item">
+                    <span class="waiting-number">A124</span>
+                    <span class="waiting-time">5 dk</span>
+                </div>
+                <div class="waiting-item">
+                    <span class="waiting-number">A125</span>
+                    <span class="waiting-time">8 dk</span>
+                </div>
+                <div class="waiting-item">
+                    <span class="waiting-number">A126</span>
+                    <span class="waiting-time">12 dk</span>
+                </div>
+                <div class="waiting-item">
+                    <span class="waiting-number">A127</span>
+                    <span class="waiting-time">15 dk</span>
+                </div>
+                <div class="waiting-item">
+                    <span class="waiting-number">A128</span>
+                    <span class="waiting-time">18 dk</span>
+                </div>
+                <div class="waiting-item">
+                    <span class="waiting-number">A129</span>
+                    <span class="waiting-time">22 dk</span>
+                </div>
+                <div class="waiting-item">
+                    <span class="waiting-number">A130</span>
+                    <span class="waiting-time">25 dk</span>
+                </div>
+                <div class="waiting-item">
+                    <span class="waiting-number">A131</span>
+                    <span class="waiting-time">28 dk</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
