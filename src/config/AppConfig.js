@@ -156,7 +156,7 @@ class AppConfig {
         arrow: {
           enabled: true,
           animated: true,
-          color: '#ffffff',
+          color: '#4ade80',
           size: 'medium',
           animationSpeed: 2000, // milliseconds
           showPulseDot: true
