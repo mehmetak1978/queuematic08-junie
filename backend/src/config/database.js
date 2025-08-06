@@ -11,7 +11,7 @@ const dbConfig = {
   user: process.env.DB_USER || 'qm_user',
   host: process.env.DB_HOST || 'localhost',
   database: process.env.DB_NAME || 'queuematic08',
-  password: process.env.DB_PASSWORD || 'queuematic2024',
+  password: process.env.DB_PASSWORD || 'queuematic082024',
   port: process.env.DB_PORT || 5432,
   max: 20, // maximum number of clients in the pool
   idleTimeoutMillis: 30000, // how long a client is allowed to remain idle

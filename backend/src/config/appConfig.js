@@ -35,7 +35,7 @@ export const appConfig = {
     port: process.env.DB_PORT || 5432,
     name: process.env.DB_NAME || 'queuematic08',
     user: process.env.DB_USER || 'qm_user',
-    password: process.env.DB_PASSWORD || 'queuematic2024'
+    password: process.env.DB_PASSWORD || 'PSWD'
   },
 
   // JWT Configuration

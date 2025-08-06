@@ -23,3 +23,7 @@ Clerk3: clerk3 / password123 (Kadıköy Şubesi)
 Clerk4: clerk4 / password123 (Kadıköy Şubesi)
 
 
+# Find what's using port 3008
+netstat -ano | findstr :3008
+# Kill the process (replace PID with the actual process ID)
+taskkill /PID <PID> /F
